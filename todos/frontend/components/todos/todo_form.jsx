@@ -5,17 +5,16 @@ class TodoForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.receiveTodo = props.receiveTodo;
+    this.createTodo = props.createTodo;
 
     this.state = {
-      id: uniqueId(),
       title: '',
-      body: ''
+      body: '',
+      done: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.resetState = this.resetState.bind(this);
   }
 
   handleInputChange(event) {
@@ -28,22 +27,15 @@ class TodoForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const action = this.receiveTodo({ id: this.state.id,
-      title: this.state.title,
-      body: this.state.body,
-      done: false
-    });
-
-    this.resetState();
-
-    return action;
+    this.createTodo(this.state)
+      .then(this.resetState());
   }
 
   resetState() {
     this.setState({
-      id: uniqueId(),
       title: '',
-      body: ''
+      body: '',
+      done: false
     });
   }
 
