@@ -9,7 +9,7 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const { todos, receiveTodo, createTodo, removeTodo, fetchTodos } = this.props;
+    const { todos, updateTodo, createTodo, deleteTodo, fetchTodos, errors } = this.props;
     return (
       <div>
         <ul>
@@ -18,12 +18,16 @@ class TodoList extends React.Component {
               <TodoListItem
                 key={todo.id}
                 todo={todo}
-                removeTodo={removeTodo}
-                receiveTodo={receiveTodo}/>
+                deleteTodo={deleteTodo}
+                updateTodo={updateTodo}
+              />
             ))
           }
         </ul>
-        <TodoForm createTodo={createTodo}/>
+        <TodoForm
+          createTodo={createTodo}
+          errors={errors}
+        />
       </div>
     );
 

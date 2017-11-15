@@ -15,6 +15,7 @@ class TodoForm extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   handleInputChange(event) {
@@ -28,7 +29,7 @@ class TodoForm extends React.Component {
     event.preventDefault();
 
     this.createTodo(this.state)
-      .then(this.resetState());
+      .then(this.resetState);
   }
 
   resetState() {
@@ -39,9 +40,24 @@ class TodoForm extends React.Component {
     });
   }
 
+  renderErrors(errors) {
+    return (
+      <ul>
+        {
+          errors.map(error => (
+            <li>{error}</li>
+          ))
+        }
+      </ul>
+    );
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit} onChange={this.handleInputChange}>
+
+        {this.renderErrors(this.props.errors)}
+
         <label htmlFor="title">Title:</label>
           <input id="title" type="text" value={this.state.title}  />
         <label htmlFor="body">Body:</label>
